@@ -1,11 +1,27 @@
+def temperatura_promedio(ciudades_temperaturas):
+    """Esta funcion calcula la tempetura promedio de un conjunto de ciudades.
+    Args:
+        ciudades_temperaturas (dict): Un diccionario que contiene nombres de ciudades como claves y lista de temperaturas como valores.
+    Returns:
+        dict:Un diccionario que contiene nombres de ciudades como claves y temperaturas promedio como valores.
+    """
+
+    temperaturas_promedio = {}
+    for ciudad, temperaturas in ciudades_temperaturas.items():
+        if temperaturas: # Verifica que la lista de temperatura no este vacia 
+           promedio = sum(temperaturas) / len (temperaturas)
+           temperaturas_promedio[ciudad] = promedio
+        else:
+            temperaturas_promedio[ciudad] = None #si no hay datos asigna none 
+    return temperaturas_promedio
 # Crea una matriz 3D
 # Primera dimensión: Ciudades ["Pillaro", "Ambato", "Patate"]
 # Segunda dimensión: Días de la semana ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
 # Tercera dimensión: Semanas (3 semanas)
 
-temperaturas = [
-    # Ciudad: Pillaro
-    [
+# Creamos un diccionario de ciudades y temperaturas
+temperaturas = { 
+    "Pillaro": [
         # Semana 1
         [
             {"dia": "lunes", "temp": 14},
@@ -37,8 +53,7 @@ temperaturas = [
             {"dia": "domingo", "temp": 15}
         ]
     ],
-    # Ciudad: Ambato
-    [
+    "Ambato":[
         # Semana 1
         [
             {"dia": "lunes", "temp": 12},
@@ -70,8 +85,7 @@ temperaturas = [
             {"dia": "domingo", "temp": 14}
         ]
     ],
-    # Ciudad: Patate
-    [
+    "Patate":  [
         # Semana 1
         [
             {"dia": "lunes", "temp": 13},
@@ -103,13 +117,20 @@ temperaturas = [
             {"dia": "domingo", "temp": 14}
         ]
      ]
-   ]
+  }
 
 # Calcular el promedio de temperaturas para cada ciudad y semana
-ciudades = ["Pillaro", "Ambato", "Patate"]
-for ciudad_idx, ciudad in enumerate(temperaturas):
-    for semana_idx, semana in enumerate(ciudad):
-        suma_temperaturas = sum([dia["temp"] for dia in semana])
-        if len(semana) > 0:  # Verificar que la semana no esté vacía
-            promedio = suma_temperaturas / len(semana)
-            print(f"Promedio de temperaturas en {ciudades[ciudad_idx]}, Semana {semana_idx + 1}: {promedio:.2f} grados")
+ciudades_temperaturas = {}
+
+for ciudad, semanas in temperaturas.items():
+    #Aplanar la lista de temperaturas de todas las semnas
+    temperaturas_a_aplanar = [temp ["temp"] for semana in semanas for temp in semana]
+    ciudades_temperaturas[ciudad] = temperaturas_a_aplanar #Guardamos la lista de temperaturas 
+
+#Llamamos a la funcion para calcular las temperaturas promedio
+temperaturas_promedio = temperatura_promedio(ciudades_temperaturas)
+
+#Mostrar los resultados
+print ("Temperaturas promedio por ciudad:")
+for ciudad, promedio in temperaturas_promedio.items():
+    print(f"{ciudad}: {promedio:.2f}°C")
