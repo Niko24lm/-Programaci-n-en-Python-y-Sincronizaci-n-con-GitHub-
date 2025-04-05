@@ -1,0 +1,27 @@
+# Escritura de Archivo de Texto
+
+# Creamos el archivo my_notes.txt en modo escritura ('w')
+file = open('my_notes.txt', 'w')
+
+# Escribimos tres líneas de notas personales en el archivo
+file.write("Nota 1: Levantarse temprano.\n")
+file.write("Nota 2: Arreglar la casa.\n")
+file.write("Nota 3: Realizar compras de la semana.\n")
+
+# Cerramos el archivo después de escribir
+file.close()
+
+# Lectura de Archivo de Texto
+
+# Abrimos el archivo my_notes.txt en modo lectura ('r')
+file = open('my_notes.txt', 'r')
+
+# Leemos el contenido del archivo línea por línea utilizando readline()
+line = file.readline()  # Leemos la primera línea
+while line:  # Mientras haya líneas que leer
+    # Mostramos cada línea leída en la consola
+    print(line.strip())  # strip() se usa para eliminar el salto de línea al final
+    line = file.readline()  # Leemos la siguiente línea
+
+# Cerramos el archivo después de leer
+file.close()
